@@ -1,5 +1,13 @@
 FROM python:3.9
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libglib2.0-0 \
+    libxrender1 \
+    libxext6
+
+RUN useradd -m -u 1000 appuser
+USER appuser
+ENV PATH="/home/appuser/.local/bin:$PATH"
 WORKDIR /app
 
 COPY requirements.txt .
